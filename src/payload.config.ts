@@ -12,7 +12,7 @@ import { Articles } from './collections/Articles';
 import { Reviews } from './collections/Reviews';
 import { Events } from './collections/Events';
 import { Registrations } from './collections/Registrations';
-
+import { Home } from './globals/Home';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -56,6 +56,7 @@ export default buildConfig({
   },
   blocks,
   collections,
+  globals: [Home],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

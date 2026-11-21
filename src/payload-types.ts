@@ -95,8 +95,12 @@ export interface Config {
     defaultIDType: number;
   };
   fallbackLocale: null;
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    home: Home;
+  };
+  globalsSelect: {
+    home: HomeSelect<false> | HomeSelect<true>;
+  };
   locale: null;
   widgets: {
     collections: CollectionsWidget;
@@ -513,6 +517,67 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home".
+ */
+export interface Home {
+  id: number;
+  /**
+   * Velg filmkvelden som skal fremheves øverst på forsiden
+   */
+  featuredEvent?: (number | null) | Event;
+  layout?:
+    | (
+        | {
+            heading: string;
+            reviews: (number | Review)[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'selectedReviews';
+          }
+        | {
+            heading: string;
+            articles: (number | Article)[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'selectedArticles';
+          }
+      )[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home_select".
+ */
+export interface HomeSelect<T extends boolean = true> {
+  featuredEvent?: T;
+  layout?:
+    | T
+    | {
+        selectedReviews?:
+          | T
+          | {
+              heading?: T;
+              reviews?: T;
+              id?: T;
+              blockName?: T;
+            };
+        selectedArticles?:
+          | T
+          | {
+              heading?: T;
+              articles?: T;
+              id?: T;
+              blockName?: T;
+            };
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
